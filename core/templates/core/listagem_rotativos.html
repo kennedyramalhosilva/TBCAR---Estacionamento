@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    TBcar - Listagem Rotativos
+{% endblock %}
+
+{% block h2 %}
+    Lista de Rotativos
+{% endblock %}
+
+{% block main %}
+
+    <!-- Mensagens das Views -->
+    {% if messages %}
+        {% for mensagem in messages %}
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ mensagem }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <ul class="list-group">
+    {% for rot in dados %}
+        <li class="list-group-item">
+        <strong>Veículo:</strong> {{ rot.id_veiculo }} <br>
+        Entrada: {{ rot.data_entrada }} <br>
+        Saída: {{ rot.data_saida }} <br>
+        Valor: {{ rot.id_parametro }} <br>
+        Total: {{ rot.total }} <br>
+        Pago: {{ rot.pago }} <br>
+        Observações: {{ rot.observacoes }} <br>
+        <a href="{% url 'url_atualiza_rotativo' rot.id %}" class="btn btn-primary">Atualizar</a><br>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

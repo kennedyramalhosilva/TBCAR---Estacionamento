@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{%  load crispy_forms_tags %}
+
+{% block extrahead %}
+		{{ form.media }}
+{% endblock %}
+
+{% block title %}
+    TBcar - {{ texto_titulo }}
+{% endblock %}
+
+{% block h2 %}
+    {{ texto_titulo }}
+{% endblock %}
+
+{% block main %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{  form | crispy }}
+        <br>
+        <button type="submit" class="btn btn-primary">{{ texto_botao }}</button> &nbsp;
+        <button type="button" onclick="location.href='{% url texto_cancelar %}'" class="btn btn-secondary">Cancelar</button>
+    </form>
+{% endblock %}

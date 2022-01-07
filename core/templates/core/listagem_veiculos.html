@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block title %}
+    TBcar - Listagem de veículos
+{% endblock %}
+
+{% block h2 %}
+    Listagem de veículos
+{% endblock %}
+
+
+{% block main %}
+
+    <!-- Mensagens das Views -->
+    {% if messages %}
+        {% for mensagem in messages %}
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ mensagem }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <ul class="list-group">
+    {% for veiculo in dados %}
+        <li class="list-group-item">
+        {% if veiculo.fabricante %}
+            Fabricante: {{ veiculo.fabricante }} <br>
+        {% else %}
+            Fabricante: <br>
+        {% endif %}
+
+        Modelo: {{ veiculo.modelo }} <br>
+
+        Ano: {{ veiculo.ano }} <br>
+
+        {% if veiculo.cor %}
+            Cor: {{ veiculo.cor }} <br>
+        {% else %}
+            Cor: <br>
+        {% endif %}
+
+        Placa: {{ veiculo.placa }} <br>
+
+        <!-- teste para verificar se tem imagem salva no banco -->
+        {% if veiculo.foto %}
+            <img src="{{ veiculo.foto.url }}" width="100"> <br>
+        {% else %}
+            <img src="{% static 'img/veiculo_generico.jpg' %}" width="100"> <br>
+        {% endif %}
+        <br>
+        <a href="{% url 'url_atualiza_veiculo' veiculo.id %}" class="btn btn-primary">Atualizar</a> &nbsp;
+        <a href="{% url 'url_exclui_veiculo' veiculo.id %}" class="btn btn-danger">Excluir</a> <br>
+        </li>
+
+    {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    TBcar - Listagem de clientes
+{% endblock %}
+
+{% block h2 %}
+    Listagem de clientes
+{% endblock %}
+
+
+{% block main %}
+
+    <!-- Mensagens das Views -->
+    {% if messages %}
+        {% for mensagem in messages %}
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ mensagem }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <ul class="list-group">
+    <!-- Dados dos Cliente -->
+    {% for cliente in dados %}
+        <li class="list-group-item">
+            Nome: {{ cliente.nome }} <br>
+
+            {% if cliente.endereco %}
+                End: {{ cliente.endereco }} <br>
+            {% else %}
+                End: <br>
+            {% endif %}
+
+            {% if cliente.complemento %}
+                Comp: {{ cliente.complemento }} <br>
+            {% else %}
+                Comp: <br>
+            {% endif %}
+
+            {% if cliente.bairro %}
+                Bairro: {{ cliente.bairro }} <br>
+            {% else %}
+                Bairro: <br>
+            {% endif %}
+
+            {% if cliente.cidade %}
+                Cidade: {{ cliente.cidade }} <br>
+            {% else %}
+                Cidade: <br>
+            {% endif %}
+
+            {% if cliente.cep %}
+                Cep: {{ cliente.cep }} <br>
+            {% else %}
+                Cep: <br>
+            {% endif %}
+
+            Email: {{ cliente.email }} <br>
+
+            {% if cliente.telefone %}
+                Fone: {{ cliente.telefone }} <br>
+            {% else %}
+                Fone: <br>
+            {% endif %}
+
+            <!-- teste para verificar se tem imagem salva no banco -->
+            {% if cliente.foto %}
+                <img src="{{ cliente.foto.url }}" width="100"> <br>
+            {% else %}
+                <img src="{% static 'img/perfil_generico.png' %}" width="100"> <br>
+            {% endif %}
+            <br>
+            <a href="{% url 'url_atualiza_cliente' cliente.id %} " class="btn btn-primary">Atualizar</a> &nbsp;
+            <a href="{% url 'url_exclui_cliente' cliente.id %}" class="btn btn-danger">Excluir</a> <br>
+        </li>
+
+    {% endfor %}
+    </ul>
+
+{% endblock %}

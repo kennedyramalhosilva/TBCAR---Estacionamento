@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- necessario para o Alert -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+    {% block extrahead %}
+    {% endblock %}
+
+
+</head>
+<body>
+
+    <div class="container-fluid">
+
+    <!-- Informações do usuário -->
+    <div class="row">
+        <div class="col-xs-12 col-lg-6 col"> <h2>TBcar - Estacionamento</h2></div>
+        <div class="col-xs-12 col-lg-6 text-right">
+            {% if user.get_username %}
+               ( Usuário: {{ user.get_username }} | <a href="/admin/">admin</a> | <a href="{% url 'logout' %}">Sair</a> )
+            {% else %}
+                ( <a href="{% url 'login' %}">Login</a> | <a href="{% url 'url_registrar' %}">Registrar</a> )
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Fim das informações do usuário -->
+
+    <!-- Menu de opções -->
+
+    <div>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="{% url 'url_principal' %}">Home</a>
+
+        <ul class="navbar-nav"
+
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Clientes
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{% url 'url_cadastro_cliente' %}">Cadastro</a>
+        <a class="dropdown-item" href="{% url 'url_listagem_clientes' %}">Listagem</a>
+      </div>
+    </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Veículos
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{% url 'url_cadastro_veiculo' %}">Cadastro</a>
+        <a class="dropdown-item" href="{% url 'url_listagem_veiculos' %}">Listagem</a>
+      </div>
+    </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Mensalistas
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Cadastro</a>
+        <a class="dropdown-item" href="#">Listagem</a>
+      </div>
+    </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Rotativos
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{% url 'url_cadastro_rotativo' %}">Cadastro</a>
+        <a class="dropdown-item" href="{% url 'url_listagem_rotativos' %}">Listagem</a>
+      </div>
+    </li>
+
+    <a class="nav-link" href="{% url 'url_listagem_parametros' %}">Parâmetros</a>
+
+  </ul>
+        <!-- Barra de pesquisa -->
+        {% if listagem %}
+            <div>
+                <form class="form-inline" method="post">
+                    {% csrf_token %}
+                <input class="form-control mr-sm-2" type="text" placeholder="Pesquisar" name="pesquisar_input">
+                <button class="btn btn-success" type="submit">Pesquisar</button>
+                </form>
+            </div>
+        {% endif %}
+</nav>
+    </div>
+    <!-- Fim do Menu de opções -->
+
+    <div>
+    {% block main %}
+    {% endblock %}
+    </div>
+
+    </div>
+</body>
+</html>

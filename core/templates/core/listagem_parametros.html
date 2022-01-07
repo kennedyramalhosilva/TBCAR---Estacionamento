@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    TabParam
+{% endblock %}
+
+{% block h2 %}
+    Tabela de Preços
+{% endblock %}
+
+{% block main %}
+
+        <ul class="list-group">
+        {% for param in dados %}
+            <li class="list-group-item">
+            <div class="row">
+                <div class="col">{{ param.descricao }}</div>
+                <div class="col">{{ param.valor }}</div>
+                <div class="col">Editar | Excluir</div>
+            </div>
+            </li>
+        {% endfor %}
+        </ul>
+
+{% endblock %}
